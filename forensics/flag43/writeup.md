@@ -8,13 +8,11 @@ We discover a request that contains a PGP message.
 
 <img src="img/message.png" alt="message" width="700"/>
 
-When trying to reach[https://sela.io/pgp/](https://sela.io/pgp/), the website seems to be down, so it looks like this challenge was made a while ago.
+When trying to reach [https://sela.io/pgp/](https://sela.io/pgp/), the website seems to be down, so it looks like this challenge was made a while ago.
 
 So now we know we need to find the key and passphrase to decrypt the message.
 
 By running the *binwalk* command on the PCAP file, we discover that there is hidden a PNG file inside:
-
-[https://ctftime.org/writeup/1197](https://ctftime.org/writeup/11971)
 
 ```bash
 └─$ binwalk capture.pcap
