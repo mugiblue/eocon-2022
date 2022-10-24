@@ -6,9 +6,9 @@ Our first approach was to look for unencrypted data streams, such as HTTP.
 
 We discover a request that contains a PGP message.
 
-![message](img/message.png)
+<img src="img/message.png" alt="message" width="700"/>
 
-By the way, the website [https://sela.io/pgp/](https://sela.io/pgp/) seems to be down, so it looks like this challenge was made a while ago.
+When trying to reach[https://sela.io/pgp/](https://sela.io/pgp/), the website seems to be down, so it looks like this challenge was made a while ago.
 
 So now we know we need to find the key and passphrase to decrypt the message.
 
@@ -31,7 +31,7 @@ Now let us try Wireshark to see if we can extract the PNG file.
 
 Basically, we can try to look for the PNG header in Wireshark. We know that this value is *89 50 4e 47* in hexadecimal.
 
-![hexsearch](img/hexsearch.png)
+<img src="img/hexsearch.png" alt="hexsearch" width="700"/>
 
 Now that we know the source IP and protocol, we can filter it in Wireshark using the source IP and protocol.
 
@@ -39,7 +39,7 @@ Now that we know the source IP and protocol, we can filter it in Wireshark using
 
 We now see that the data begins at offset 00e0 and ends at offset 01e0:
 
-![pngstream](img/pngstream.png)
+<img src="img/pngstream.png" alt="hexsearch" width="500"/>
 
 (This, by the way, is the end of the PNG file, signaled by the IEND chunk).
 
@@ -51,11 +51,11 @@ We use Wireshark to extract the bytes between 00e0 and 01e0 to get the PNG file.
 
 We can use an online hexadecimal to PNG converter like this one ([https://codepen.io/abdhass/full/jdRNdj](https://codepen.io/abdhass/full/jdRNdj)) to get the image:
 
-![hextopng](img/hextopng.png)
+<img src="img/hextopng.png" alt="hextopng" width="550"/>
 
 You can read it using a command line or use a QR code reader on the Internet (like this one: https://webqr.com) to get the PGP private key:
 
-![qrcode](img/qrcode.png)
+<img src="img/qrcode.png" alt="qrcode" width="650"/>
 
 ```
 -----BEGIN PGP PRIVATE KEY BLOCK-----
@@ -94,7 +94,7 @@ zdZ/
 
 ## Retrieving the passphrase and conclusion
 
-[https://sela.io/pgp/](https://sela.io/pgp/) is no longer available, but this is not a problem as you can use the gpg command for it.
+[https://sela.io/pgp/](https://sela.io/pgp/) is no longer available, but this is not a problem as you can use the gpg command to decrypt the message.
 
 When trying to import the key, we see that a passphrase is required.
 
